@@ -42,7 +42,7 @@ int findSet (int T[], int id) {
     if (T[id] != id) {
         T[id] = findSet(T, T[id]);
     }
-    return id;
+    else return id;
 }
 
 int smallestGroup (Cyclist cyclist[], int n) {
@@ -62,9 +62,10 @@ int smallestGroup (Cyclist cyclist[], int n) {
 
     //3. Przechodzac raz przez dana do funkcji tablice cyclist, wpisuje 1 w w kazdym polu tablicy T o indeksie cyclist[i].n_id, jesli n_id != -1
     for (int i = 0; i < n; i++) {
+//        cout << cyclist[i].n_id << " ";
         if (cyclist[i].n_id != -1) T[cyclist[i].n_id] = 1;
     }
-
+//    cout << endl;
 
     //4. Przechodzac raz przez liste cyclists, szukam w tablicy T pol o indeksie l1 -> val, w ktorych pozostaly '0'.
     //   Sa to cyklisci zamykajacy kazda z grup, ktorych nikt nie widzi. Jesli napotkamy takiego cykliste, wrzucamy go na kolejke q.
@@ -76,7 +77,7 @@ int smallestGroup (Cyclist cyclist[], int n) {
     }
 
     // Skonczylismy juz szukac ostatnich cyklistow zamykajacych grupy. Teraz bedziemy traktowac rowerzystow jako elementy zbiorow.
-    //5. Przechodzac raz przez dana do funkcji tablice cyclist, pod kazdy napotkany indeks cyclist[i].id wpisuje cyclist[i].n_id (gdy cyclist[i].n_id == -1, wpisuje id).
+    //5. Przechodzac raz przez dana do funkcji tablice cyclist, pod kazdy napotkany indeks w tablicy T cyclist[i].id wpisuje cyclist[i].n_id (gdy cyclist[i].n_id == -1, wpisuje id).
     for (int i = 0; i < n; i++) {
         if (cyclist[i].n_id != -1) {
             T[cyclist[i].id] = cyclist[i].n_id;
@@ -90,16 +91,29 @@ int smallestGroup (Cyclist cyclist[], int n) {
     // Od teraz pod konkretnym indeksem rowerzysty w tablicy T bedzie indeks pierwszego rowerzysty z jego grupy.
     while (!q.empty()) {
         int x = q.front();
+//        cout << x << " ";
         q.pop();
         findSet(T, x);
     }
+//
+//    flyer = cyclists;
+//    while (flyer != NULL) {
+//        cout << flyer -> val << " " << T[flyer -> val] << endl;
+//        flyer = flyer -> next;
+//    }
 
+    // Tworze kolejke f, do ktorej bede wrzucac numery pierwszych rowerzystow z grup
+    queue <int> f;
     //7. Tworze tablice licznikow liczebnosci grup - A[10^8] i przechodzac przez liste cyclists i korzystajac z informacji w tablicy T, zeruje pola w tablicy A pod tymi indeksami,
     //ktore w tablicy T maja wartosc rowna swojemu indeksowi (pierwsi rowerzysci, czyli reprezentanci naszych grup).
     int A[N];
     flyer = cyclists;
     while (flyer != NULL) {
-        if (T[flyer ->val] == flyer -> val) A[flyer -> val] = 0;
+        if (T[flyer ->val] == flyer -> val) {
+            A[flyer -> val] = 0;
+//            cout << flyer -> val << " ";
+            f.push(flyer -> val);
+        }
         flyer = flyer -> next;
     }
 
@@ -110,20 +124,20 @@ int smallestGroup (Cyclist cyclist[], int n) {
         flyer = flyer -> next;
     }
 
-    //10. Ostatni raz przechodczac przez liste cyclists, szukam minimalnej wartosci A[l1 -> val].
+    //10. Wyjmujac kolejno pierwszych rowerzystow grup z kolejki f, szukam minimalnej wartosci A[l1 -> val].
     int min = n;
-    flyer = cyclists;
-    while (flyer != NULL) {
-        if (A[flyer -> val] < min) min = A[flyer -> val];
-        flyer = flyer -> next;
+    while (!f.empty()) {
+        int x = f.front();
+        f.pop();
+//        cout << A[x] << " ";
+        if (A[x] < min) min = A[x];
     }
-
     return min;
 }
 
 int main() {
 
-
-
+    Cyclist A[12] = {22, 271, 81, -1, 17, 13, 15, 432, 513, -1, 2, 22, 315, 513, 13, 81, 1, 15, 432, -1, 7, 1, 271, 315};
+    cout << endl << "Rozmiar najmniejszej grupy: " << smallestGroup(A, 12);
 
 }
