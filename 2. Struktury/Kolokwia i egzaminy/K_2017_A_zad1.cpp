@@ -50,28 +50,19 @@ using namespace std;
  int* releaseThemAll(HuntingList* list, int n) {
     queue <int> q;
 
-    int G[n][n] = {}; // macierz reprezentujaca graf
+    int G[n][n]; // macierz reprezentujaca graf
 
-//    int Tab[n];
-//
-//    for (int i = 0; i < n; i++) {
-//        Tab[i] = NULL;
-//    }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++)
+            G[i][j] = 0;
+    }
 
     HuntingList* p = list;
 
     while (p != NULL) {
-//        node* Prey = new node;
-//        Prey -> val = p -> prey;
-//        Prey -> next = Tab[p -> predator];
-//        Tab[p -> predator] = Prey;
         G[p -> predator][p -> prey] = 1;
         p = p -> next;
     }
-
-//    for (int i = 0; i < n; i++) {
-//        if (Tab[i] == NULL) q.push(i);
-//    }
 
     for (int i = 0; i < n; i++) {
         bool calm = true;
@@ -82,21 +73,20 @@ using namespace std;
     }
     int Counters[n] = {};   // liczniki
 
-//    int* Kol = new int[n];    // tablica wynikowa reprezentujaca kolejnosc
-    int* Kol = (int*) malloc (n * sizeof(*Kol));
+    int* Kol = (int*) malloc (n * sizeof(int));
     for (int i = 0; i < n; i++) Kol[i] = -1;
     int i = 0;
 
     while (!q.empty()) {
         Kol[i] = q.front();
         q.pop();
-        i++;
-        for (int j = 0; j <n; j++) {
+        for (int j = 0; j < n; j++) {
             if (G[j][Kol[i]] == 1) {
                 Counters[j]++;
                 if (Counters[j] == 2) q.push(j);
             }
         }
+        i++;
     }
     for (int i = 0; i < n; i++) {
         if (Kol[i] == -1) return NULL;
@@ -106,13 +96,14 @@ using namespace std;
  }
 
  int main() {
-     int N = 8;
-     Help A[N] = {0, 1, 0, 2, 1, 4, 1, 5, 2, 1, 2, 4, 5, 4, 5, 6};
+     int N = 9;
+     Help A[N] = {0, 1, 0, 2, 1, 4, 1, 5, 2, 1, 2, 4, 5, 4, 5, 3, 3, 4};
      HuntingList* head = create(A, N);
-     int* wyn = releaseThemAll(head, 7);
+     int* wyn = releaseThemAll(head, 6);
 //    while (head != NULL) {
 //        cout << head -> prey << " ";
 //        head = head -> next;
 //    }
-    for (int i = 0; i < 7; i++) cout << wyn[i] << " ";
+    if (wyn == NULL) cout << "Nie da sie.";
+    else for (int i = 0; i < 6; i++) cout << wyn[i] << " ";
  }
