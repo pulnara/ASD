@@ -12,7 +12,7 @@ struct Graph {
 
 void DFS_visit (Graph G, int u, int &time);
 
-void DFS (Graph G, int s) {
+void DFS (Graph G) {
     for (int i = 0; i < G.N; i++) {
         G.tpocz[i] = -1;
         G.parent[i] = -1;
@@ -55,7 +55,7 @@ int main() {
         cout << endl;
     }
     cout << endl;
-    DFS(G, 0);
+    DFS(G);
     for (int i = 0; i < G.N; i++) cout << G.tpocz[i] << " ";
     cout << endl;
     for (int i = 0; i < G.N; i++) cout << G.tzak[i] << " ";
