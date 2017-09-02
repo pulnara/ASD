@@ -1,0 +1,37 @@
+Najprostsze do wyt³umaczenie rozwi¹zanie opiera siê na wykorzystaniu skiplisty.
+W skipliœcie S bêdziemy trzymaæ trójki liczb (a,b,c), odpowiednio pocz¹tek przedzia³u, koniec przedzia³u, wysokoœæ przedzia³u.
+W skipliœcie bêdziemy zachowywaæ nierównoœci: a1<b1 <= a2<b2 <= a3<b3 <= ... .
+Teraz opiszê, jak przy takich za³o¿eniach zrealizowaæ wstawianie (do³o¿enie klocka (ai,bi)).
+
+Mianowicie deklarujemy zmienn¹ int max_height=0. Potem wyszukujemy taki najmniejszy przedzia³ (ak,bk,ck), ¿e ai < bk (czyli pierwszy przedzia³, który mo¿e zostaæ chocia¿ czêœciowo pokryty przez i-ty klocek, O(log i)).
+- Je¿eli zachodzi równie¿ ai > ak (czyli przedzia³ (ak, bk) ma z lewej strony fragment (ak, ai), którego nie pokryje i-ty klocek), to aktualizujemy max_height, wstawiamy przedzia³ (ak,ai,ck),
+a przedzia³ (ak,bk,ck) zamieniamy na (ai,bk,ck).
+Nastêpnie usuwamy wszystkie przedzia³y (am, bm, cm), które zawieraj¹ siê w ca³oœci pod i-tym klockiem (czyli dla których ai <= am < bm <= bi) oraz aktualizujemy max_height (czyli max_height := max(max_height,cm)).
+- Je¿eli na koñcu jest przedzia³ (ap,bp,cp), który jest czêœciowo pod i-tym klockiem (czyli dla którego ap < bi < bp), to przedzia³ (ap,bp,cp) zamieniamy na (bi,bp,cp) oraz aktualizujemy max_height.
+Oczywiœcie mo¿e okazaæ siê, ¿e nie bêdzie ¿adnego przedzia³u chocia¿ czêœciowo pokrywaj¹cego siê z i-tym klockiem. To jednak nam nie przeszkadza, gdy¿ wtedy max_height to po prostu 0.
+Na koñcu wstawiamy przedzia³ (ai,bi,max_height+1) do skiplisty S.
+
+W powy¿ej przedstawiony sposób wstawiamy wszystkie klocki po kolei. Odpowiedzi¹ jest najwiêksza wartoœæ cj w skipliœcie S (znajdujemy liniowo).
+
+Ilustracjê skiplisty z przyk³adu z treœci zadania zamieszczam w za³¹czniku (K_2017_A_zad3.txt).
+
+Teraz zastanówmy siê nad z³o¿onoœci¹ wy¿ej wspomnianego algorytmu.
+Otó¿ przy ka¿dym wstawianiu mog¹ nam powstaæ maksymalnie dwa przedzia³y niebêd¹ce wczeœniej w skipliœcie,
+a wynikaj¹ce z przycinania przedzia³ów. Zatem w skipliœcie znajdzie siê ³¹cznie maksymalnie 3n przedzia³ów, czyli O(n) przedzia³ów.
+Ka¿dy z tych przedzia³ów jest raz wstawiany i raz usuwany, wiêc sumaryczny czas wstawiania to O(n*logn).
+Ponadto wyszukiwanie pierwszego przedzia³u w skipliœcie to O(logn), wiêc sumaryczny koszt wyszukiwania to O(n*logn). Wobec tego z³o¿onoœæ tego rozwi¹zania to O(n*logn).
+
+struct SLNode {
+    SLNode** next;
+    int a, b;
+    int height;
+    int level;
+};
+
+struct SkipList {
+    SLNode* first;
+    SLNode* last;
+    int max_level;
+};
+
+Creditsy za rozwi¹zanie dla £ukasza J. :)
