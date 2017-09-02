@@ -25,16 +25,16 @@ void enlarge(HT* ht) {
     queue <int> q;
     int j = ht -> size;
     ht -> size = 2 * ht -> size;
-    cout << "lala";
+
     for (int i = 0; i < j; i++) {
         if (hash(ht -> table[i]) % ht -> size == i) continue;   // zbedne
-        cout << "dupa";
+//        cout << "dupa";
 //        if (ht -> table[i] > 0 and hash(ht -> table[i]) % ht -> size != i) {
 //            q.push(ht -> table[i]);
 //            ht -> table[i] = -1;
 //        }
     }
-    cout << "bla";
+
     while (!q.empty()) {
         int x = q.front();
         q.pop();
