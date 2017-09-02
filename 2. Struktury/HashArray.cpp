@@ -8,6 +8,7 @@ enum Status {
 struct HT {
     Key* key;
     Status* status;
+    Data* data;
     int size;
 };
 
