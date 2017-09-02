@@ -1,7 +1,7 @@
 // Ustawia wierzcholki w takim porzadku, ze gdybysmy narysowali je w 1 linii, wszystkie krawedzie skierowane bylyby z lewej na prawa (->)
 /*
 Przykladowe dane:
-0 -> 2 ->b1
+0 -> 2 -> 1
 1 -> 5 -> 4
 2 -> 6 -> 5 -> 3
 3 ->
