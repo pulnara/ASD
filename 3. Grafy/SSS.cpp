@@ -30,12 +30,13 @@ void DFS_visit (Graph G, int u, int& time) {
     G.tzak[u] = time;
 }
 
-void DFS (Graph G) {
+int DFS (Graph G) {
     int time = -1;
     for (int i = 0; i < G.N; i++) {
-        if (!G.visited[i]) DFS_visit(G, i, time);
+        if (!G.visited[i]) {
+            DFS_visit(G, i, time);
+        }
     }
-
 }
 
 void transposition (Graph G) {
@@ -84,8 +85,9 @@ void DFS_visit_mod (Graph G, int u, int& time) {
     G.tzak[u] = time;
 }
 
-void DFS_mod (Graph G) {
+int DFS_mod (Graph G) {
     int time = -1;
+    int counter = 0;
     for (int i = 0; i < G.N; i++) {
         G.visited[i] = false;
         G.helper[i].ind = i;
@@ -93,13 +95,21 @@ void DFS_mod (Graph G) {
     }
     QuickSort(G.helper, 0, G.N - 1);
     for (int i = 0; i < G.N/2; i++) swap (G.helper[i], G.helper[G.N - 1 - i]);
+//    for (int i = 0; i < G.N; i++) cout << G.helper[i].val << " ";
     cout << endl;
     for (int i = 0; i < G.N; i++) {
         int u = G.helper[i].ind;
-        if (!G.visited[u]) DFS_visit_mod(G, u, time);
-        cout << endl;
+//        cout << "u" << u << " ";
+        if (!G.visited[u]) {
+            DFS_visit_mod(G, u, time);
+            counter++;
+            cout << endl;
+        }
+//        cout << endl;
     }
+    return counter;
 }
+
 
 int main() {
 //    Graph G;
@@ -158,5 +168,6 @@ int main() {
     cout << endl;
     for (int i = 0; i < G.N; i++) cout << G.tzak[i] << " ";
     transposition(G);
-    DFS_mod(G);
+    cout << endl << endl << "SSS to: ";
+    cout << "Liczba SSS: " << DFS_mod(G) << endl;
 }
