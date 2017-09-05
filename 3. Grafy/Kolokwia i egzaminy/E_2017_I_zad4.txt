@@ -1,0 +1,5 @@
+1. Wsrod wszystkich wag krawedzi wybieramy maksymalna wage krawedzi T. = O(E)
+2. for (int t = 1; t <= T; t++) : za pomoca BFS/DFS dla kazdego t (ze wzgledu na t wybieramy dopuszczalne krawedzie) sprawdzamy, czy istnieje polaczenie miedzy x i y = O(T*(V+E)).
+   Jesli istnieje, konczymy i zwracamy true.
+   Jesli nie istnieje dla zadnego to zwracamy false.
+Zlozonosc: O(T*(V+E))

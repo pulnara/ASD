@@ -1,0 +1,5 @@
+1. Odnajdujemy w skipliscie pierwszy element - x. - O(logn)
+   Tworzymy osobna tablice, w ktorej zapisujemy wskazniki, ktore sa na danej pozycji przed naszym elementem.
+2. Za kazdym razem kiedy usuniemy element, aktualizujemy wskazniki i powtarzamy te czynnosci, az usuniemy y.
+Zlozonosc:
+O(log n + d) - d razy aktualizujemy wskaznik na 1. poziomie, d/2 razy na 2. poziomie, d/4 razy na 3. poziomie itd. (w sumie <= 2d)
