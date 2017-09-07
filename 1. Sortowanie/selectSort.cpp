@@ -13,8 +13,8 @@ void ssort(int A[], int n) {
 }
 
 void print (int A[], int n) {
-    for (int i = 0; i < n; i++) cout<<A[i]<<" ";
-    cout<<endl;
+    for (int i = 0; i < n; i++) cout << A[i] << " ";
+    cout << endl;
 }
 
 int main() {
