@@ -2,8 +2,8 @@
 using namespace std;
 
 void print (int A[], int n) {
-    for (int i = 0; i < n; i++) cout<<A[i]<<" ";
-    cout<<endl;
+    for (int i = 0; i < n; i++) cout << A[i] << " ";
+    cout << endl;
 }
 
 void mergeTabs (int A[], int p, int q, int r) {
