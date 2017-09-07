@@ -3,13 +3,14 @@
 	Node* left;
 	Node* right;
 	int val;
-	//nie mamy wskaŸnika na rodzica
+	//nie mamy wskaznika na rodzica
 };
 
 IN: Root
-Mamy strukture drzewa binarnego i mamy obliczyæ sumê drzewa.
-Nie mo¿na u¿ywaæ dodatkowej pamiêci.
+Mamy strukture drzewa binarnego i mamy obliczyc sume drzewa.
+Nie mozna uzywac dodatkowej pamieci.
 */
+
 #include <iostream>
 using namespace std;
 
