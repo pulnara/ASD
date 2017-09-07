@@ -66,7 +66,7 @@ int main() {
     int A[10] = {-2, 1, 253, -28, 0, 33, 15, 12, -28, 110};
     node* head = create(A, 10);
     print(head);
-    cout<<endl;
+    cout << endl;
     isort_list(head);
     print(head);
 }
