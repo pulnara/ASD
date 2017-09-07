@@ -4,7 +4,7 @@ using namespace std;
 
 DFS(int** G, int start, bool visited[], int N, int val) {
     for (int j = 0; j < N; j++) {
-        if (!visited[j] and G[start][j] > 0 and G[start][j] < val) {
+        if (G[start][j] > 0 and G[start][j] < val) {
             visited[j] = true;
             DFS(G, j, visited, N, G[start][j]);
         }
