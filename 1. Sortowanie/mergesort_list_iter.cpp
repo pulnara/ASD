@@ -123,7 +123,6 @@ void mergeSortStack (node*& head) {
         head = tmp;
     }
 
-//    cout << "dupa" << endl;
     while (s1.size() != 1 and s2.size() != 1) {
         while (s1.size() > 1) {
             node* helper = s1.top();
@@ -138,7 +137,6 @@ void mergeSortStack (node*& head) {
         }
 
         while (s2.size() > 1) {
-//            cout << "haha" << endl;
             node* helper = s2.top();
             s2.pop();
             node* helper1 = s2.top();
@@ -149,7 +147,6 @@ void mergeSortStack (node*& head) {
             s1.push(s2.top());
             s2.pop();
         }
-//        cout << "supa1" << endl;
 
     }
     if (s1.size() == 1) head = s1.top();
